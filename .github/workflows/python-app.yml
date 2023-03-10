@@ -20,4 +20,11 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest
+        pytest --alluredir=allure-results
+    - name: Uploading test artifacts
+      uses: actions/upload-artifact@v3.1.0
+      if: always()
+      with:
+        name: 'allure-results'
+        path: allure-results
+        retention-days: 1
